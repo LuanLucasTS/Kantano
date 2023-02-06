@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<video id="myVideo" width="1200" controls style="display:none">
+    <source src="{{ url_for('static', filename="video/kda.mp4") }}" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+
+<button id="playButton">Play Video</button>
+
+<script>
+  document.getElementById("playButton").addEventListener("click", function() {
+    var video = document.getElementById("myVideo");
+    var playButton = document.getElementById("playButton");
+    video.style.display = "block";
+    playButton.style.display = "none";
+    video.requestFullscreen();
+    video.play();
+  });
+
+  document.getElementById("myVideo").addEventListener("ended", function() {
+    var video = document.getElementById("myVideo");
+    var playButton = document.getElementById("playButton");
+    video.style.display = "none";
+    playButton.style.display = "block";
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    } else if (document.mozCancelFullScreen) {
+      document.mozCancelFullScreen();
+    } else if (document.msExitFullscreen) {
+      document.msExitFullscreen();
+    }
+  });
+
+document.addEventListener("keyup", function(event) {
+  if (event.code === "KeyP") {
+    var video = document.getElementById("myVideo");
+    video.paused ? video.play() : video.pause();
+  } else if (event.code === "KeyE") {
+    var video = document.getElementById("myVideo");
+    video.pause();
+    video.currentTime = 0;
+    document.exitFullscreen();
+    video.style.display = "none";
+    document.getElementById("playButton").style.display = "block";
+  }
+});
+
+document.addEventListener("fullscreenchange", function() {
+  if (document.fullscreenElement) {
+    document.body.style.pointerEvents = "none";
+  } else {
+    document.body.style.pointerEvents = "auto";
+  }
+});
+
+var video = document.getElementById("myVideo");
+
+video.addEventListener("fullscreenchange", function() {
+  if (!document.fullscreenElement && video.id === "myVideo") {
+    video.pause();
+    video.style.display = "none";
+    document.body.style.cursor = "default";
+    document.body.style.pointerEvents = "auto";
+    video.pause();
+    video.currentTime = 0;
+    document.getElementById("playButton").style.display = "block";
+  }
+});
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+ #myVideo::cue {
+   background-color: black;
+   color: white;
+ }
+ #myVideo::cue(b) {
+   color: yellow;
+ }
+video:-webkit-full-screen {
+    cursor: none;
+}
+video::-webkit-media-controls {
+  display:none;
+  pointer-events:none;
+}
+
+video::-webkit-media-controls-enclosure {
+  display:none;
+  pointer-events:none;
+}
+
+video::-webkit-media-controls-overlay-play-button {
+  display:none;
+  pointer-events:none;
+}
+
+video::-webkit-media-controls-play-button {
+  display:none;
+  pointer-events:none;
+}
+
+video::-webkit-media-controls-start-playback-button {
+  display:none;
+  pointer-events:none;
+}
+
+video {
+  cursor: none;
+}

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    .container {
+      position: relative;
+      width: 800px; /* ajuste o tamanho conforme necessário */
+      margin: 0 auto;
+    }
+
+    .background-image {
+      width: 100%;
+      height: auto;
+    }
+
+    .lyrics {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      font-size: 24px; /* ajuste o tamanho da fonte conforme necessário */
+      color: white; /* ajuste a cor do texto conforme necessário */
+      text-shadow: 2px 2px 4px black; /* ajuste a sombra do texto conforme necessário */
+      white-space: pre-line;
+    }
+
+    .highlight {
+      background-color: yellow; /* ajuste a cor de destaque conforme necessário */
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="static/imagens/capas/todas.jpg" class="background-image" alt="Imagem de fundo">
+    <div class="lyrics" id="lyricsContainer">
+      <p data-start-time="0">Primeira linha da letra</p>
+      <p data-start-time="5">Segunda linha da letra</p>
+      <p data-start-time="10">Terceira linha da letra</p>
+      <p data-start-time="15">Quarta linha da letra</p>
+      <!-- Adicione mais linhas conforme necessário -->
+    </div>
+  </div>
+
+  <script>
+    // Obtém todas as linhas da letra
+    const lines = Array.from(document.querySelectorAll("#lyricsContainer p"));
+
+    // Função para atualizar a letra destacando a linha atual
+    function updateLyrics(currentTime) {
+      lines.forEach(line => {
+        const startTime = parseFloat(line.getAttribute("data-start-time"));
+        if (startTime <= currentTime) {
+          line.classList.add("highlight");
+        } else {
+          line.classList.remove("highlight");
+        }
+      });
+    }
+
+    // Simulação do tempo da música (em segundos)
+    let currentTime = 0;
+    setInterval(() => {
+      updateLyrics(currentTime);
+      currentTime += 1; // Aumente o tempo conforme necessário
+    }, 1000); // Atualize o intervalo conforme necessário
+  </script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{% extends 'template.html' %}
+{% block content %}
+<div class="grid-container">
+    {% for musicas in musicas %}
+    <input type="hidden" id="id" name="id" value="{{ musicas.id }}" />
+        <div class="grid-item">
+            <a href="{{ url_for('video', id=musicas.id) }}"><img src="static/imagens/capas/{{musicas.capa}}"> </a>
+            <p class="title">{{ musicas.titulo }}</p>
+            <p class="artist">{{ musicas.artista }}</p>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

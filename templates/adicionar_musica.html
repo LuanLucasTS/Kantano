@@ -1,0 +1,22 @@
+{% extends 'template.html' %}
+{% block content %}
+<form action="/adicionar_musica" method="post" enctype="multipart/form-data">
+    <div class="row" style="margin: 1em; ">
+        <div class="col-sm">
+            <label class="p-2 mb-2 bg-dark h5 rounded text-white" for="titulo">Título:</label>
+            <input class="form-control col-form-label" autocomplete="off" type="text" name="titulo" id="titulo"><br><br>
+            <label class="p-2 mb-2 bg-dark h5 rounded text-white" for="legenda">Letra:</label>
+            <textarea class="form-control col-form-label" autocomplete="off" name="legenda" id="legenda" rows="30" cols="50"></textarea><br><br>
+        </div>
+        <div class="col-sm">
+            <label class="p-2 mb-2 bg-dark h5 rounded text-white" for="artista">Artista:</label>
+            <input class="form-control col-form-label" autocomplete="off" type="text" name="artista" id="artista"><br><br>
+            <label class="p-2 mb-2 bg-dark h5 rounded text-white" for="video">Selecione o vídeo:</label>
+            <input class="form-control btn-secondary" type="file" name="video" id="video"><br><br>
+            <input class="btn btn-secondary" type="submit" value="Enviar">
+        </div>
+    </div>
+</form>
+{% endblock %}
+
+

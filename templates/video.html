@@ -1,77 +1,49 @@
-<!DOCTYPE html>
-<html>
-<body>
+{% extends 'template.html' %}
+{% block content %}
+	<link rel="stylesheet" href="/static/css/disco.css">
+	<link rel="stylesheet" href="/static/css/legendas.css">
+    <div class="featured-movie">
+        <div style="position: relative;" class="bottom-bar">
+            <div class="title-container" >
+                <span class="fa fa-play-circle " ></span>
+                	<b>
+		Pausar <span class="badge badge-secondary">P</span>
+		| Sair <span class="badge badge-secondary">S</span>
+		| Reiniciar <span class="badge badge-secondary">R</span>
+		| Aumentar volume <span class="badge badge-secondary">+</span>
+		| Diminuir volume <span class="badge badge-secondary">-</span>
+	</b>
+            </div>
+        </div>
+    </div>
 
-<video id="myVideo" width="1200" controls style="display:none">
-    <source src="{{ url_for('static', filename="video/kda.mp4") }}" type="video/mp4">
-    Your browser does not support the video tag.
+<video id="myVideo" width="1200" style="display:none ">
+
+					{% for musica in musica %}
+    <source src="/static/video/{{ musica.video }}" type="video/mp4" >
+
+    <track id="legenda" kind="subtitles" src="/static/legenda/{{ musica2 }}.vtt" srclang="pt" label="Português" default>
+
 </video>
+<div class="music-player-container is-playing position-fixed">
+	<div class="music-player">
+		<div class="player-content-container">
 
-<button id="playButton">Play Video</button>
+			<h1 class="artist-name">{{ musica.titulo }}</h1>
+			<h2 class="album-title">{{ musica.artista }}</h2>
+			<h3 class="song-title">{{ musica.album }}</h3>
+			<br><br>
 
-<script>
-  document.getElementById("playButton").addEventListener("click", function() {
-    var video = document.getElementById("myVideo");
-    var playButton = document.getElementById("playButton");
-    video.style.display = "block";
-    playButton.style.display = "none";
-    video.requestFullscreen();
-    video.play();
-  });
+				<button id="playButton" class="btn btn-secondary btn-lg">Cantar!</button>
+			<br><br>
+		</div>
+	</div>
+	<div class="album">
+  		<img class="album-art" src="/static/imagens/capas/{{ musica.capa }}">
+		<div class="vinyl" style="background-image: url('/static/imagens/disco.png'),url('/static/imagens/capas/{{ musica.capa }}');"></div>
+		   {% endfor %}
 
-  document.getElementById("myVideo").addEventListener("ended", function() {
-    var video = document.getElementById("myVideo");
-    var playButton = document.getElementById("playButton");
-    video.style.display = "none";
-    playButton.style.display = "block";
-    if (document.exitFullscreen) {
-      document.exitFullscreen();
-    } else if (document.webkitExitFullscreen) {
-      document.webkitExitFullscreen();
-    } else if (document.mozCancelFullScreen) {
-      document.mozCancelFullScreen();
-    } else if (document.msExitFullscreen) {
-      document.msExitFullscreen();
-    }
-  });
-
-document.addEventListener("keyup", function(event) {
-  if (event.code === "KeyP") {
-    var video = document.getElementById("myVideo");
-    video.paused ? video.play() : video.pause();
-  } else if (event.code === "KeyE") {
-    var video = document.getElementById("myVideo");
-    video.pause();
-    video.currentTime = 0;
-    document.exitFullscreen();
-    video.style.display = "none";
-    document.getElementById("playButton").style.display = "block";
-  }
-});
-
-document.addEventListener("fullscreenchange", function() {
-  if (document.fullscreenElement) {
-    document.body.style.pointerEvents = "none";
-  } else {
-    document.body.style.pointerEvents = "auto";
-  }
-});
-
-var video = document.getElementById("myVideo");
-
-video.addEventListener("fullscreenchange", function() {
-  if (!document.fullscreenElement && video.id === "myVideo") {
-    video.pause();
-    video.style.display = "none";
-    document.body.style.cursor = "default";
-    document.body.style.pointerEvents = "auto";
-    video.pause();
-    video.currentTime = 0;
-    document.getElementById("playButton").style.display = "block";
-  }
-});
-
-</script>
-
-</body>
-</html>
+	</div>
+</div>
+<script src="/static/js/video.js"></script>
+{% endblock %}

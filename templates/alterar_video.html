@@ -1,0 +1,22 @@
+{% extends 'template.html' %}
+{% block content %}
+<div class="row">
+   <div class="col-sm">
+       <video width="1000" controls>
+           <source src="/static/video/{{video}}" type="video/mp4" >
+        </video>
+   </div>
+
+   <div class="col-sm">
+       <form action="{{ url_for('alterar_video', video=video) }}" method="post" enctype="multipart/form-data">
+       <h2>Alterar a partir de um arquivo:</h2>
+       <input class="form-control btn-secondary" type="file" name="arquivo" id="arquivo">
+       <input type="hidden" id="video" name="video" value="{{ video }}">
+       <button type="submit" class="btn btn-primary mr-2"><i class="fas fa-plus-square"></i> Salvar</button>
+       </form>
+        <br><br>
+        <a class="btn btn-danger float-left" href = "/editar_musicas"><i class="fas fa-arrow-left"></i> Voltar</a>
+    </div>
+
+</div>
+{% endblock %}

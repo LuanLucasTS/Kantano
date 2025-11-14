@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR" >
+<head>
+	<meta charset="UTF-8">
+	<title>Kantano Karaoke</title>
+	<link rel="icon" type="image/x-icon" href="/static/imagens/logo.png">
+	<link rel="stylesheet" href="/static/css/reset.min.css">
+	<link rel="stylesheet" href="/static/css/template.css">
+	<link rel="stylesheet" href="/static/css/bootstrap.css">
+	<link rel="stylesheet" href="/static/fontawesome-free-6.3.0-web/css/all.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/jquery.dataTables.min.css"/>
+</head>
+<body style="background: #F0F0f1;">
+<div class="window">
+	<div class="sidebar">
+		<div class="top-bar">
+			<p class="logo">Kantano Karaoke</p>
+		</div>
+		<div class="search-box">
+			<form id="search-form" action="/pesquisa" method="post">
+			  <div class="search-box">
+				<form action="{{ url_for('pesquisa') }}" method="post" enctype="multipart/form-data">
+				<input type="text" name="pesquisa" id="pesquisa" autocomplete="off" placeholder="Pesquisar...">
+				</form>
+			  </div>
+			</form>
+		</div>
+		<div class="menu">
+			<p class="menu-name">Gêneros</p>
+			<ul>
+				<!--VER O JS PRA MUDAR A CLASSE PRA ATIVADO-->
+				<li class="active"><a href="/">Todas as músicas</a></li>
+				<li><a href="/kpop">K-Pop</a></li>
+				<li><a href="/pop">Pop</a></li>
+				<li><a href="/rock">Rock</a></li>
+				<li><a href="/anime">Anime</a></li>
+			</ul>
+			<div class="separator"></div>
+			<ul class="no-bullets">
+				<li><a href="/editar_legendas">Editar legendas</a></li>
+				<li><a href="/editar_musicas">Editar músicas</a></li>
+				<li><a href="/adicionar_musica">Adicionar música</a></li>
+				<li><a href="#">Configurações</a></li>
+			</ul>
+			<div class="separator"></div>
+		</div>
+	</div>
+	<div class="main" >
+	<div class="featured-movie">
+    {% for pagina in pagina %}
+		<img class="cover" src="/static/imagens/capas/{{ pagina.capa }}"/>
+		<div class="bottom-bar">
+			<div class="title-container">
+				<span class="fa fa-play-circle "></span>
+				<b>{{ pagina.titulo }}</b>
+			</div>
+			{% if pagina.nome == 'todas' or pagina.nome == 'random'%}
+			<div class="right"><a class="btn btn-primary" href="/random">Surpreenda me!</a></div>
+			{% endif %}
+		</div>
+	</div>
+	{% endfor %}
+  	{% block content %}{% endblock %}
+	</div>
+</div>
+</body>
+</html>
